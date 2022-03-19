@@ -13,37 +13,35 @@ public enum VideoType: Int, Codable {
 }
 
 public struct MMPlayerDownLoadVideoInfo: Codable, Equatable {
-    let url: URL
-    let type: VideoType
-    let fileName: String
-    let fileSubPath: String
-    
-    var localURL: URL {
+    public let url: URL
+    public let type: VideoType
+    public let fileName: String
+    public let fileSubPath: String
+
+    public var localURL: URL {
         get {
-            return URL.init(fileURLWithPath: VideoBasePath)
-                      .appendingPathComponent(fileSubPath)
-                      .appendingPathComponent(convrtFileName)
+            URL(fileURLWithPath: VideoBasePath)
+                .appendingPathComponent(fileSubPath)
+                .appendingPathComponent(convrtFileName)
         }
     }
-    
+
     private var convrtFileName: String {
-        get {
-            var name = fileName.isEmpty ? url.absoluteString.base64 : fileName
-            switch self.type {
-            case .hls:
-                break
-            case .mp4:
-                name += ".mp4"
-            }
-            
-            return name
+        var name = fileName.isEmpty ? url.absoluteString.base64 : fileName
+        switch type {
+        case .hls:
+            break
+        case .mp4:
+            name += ".mp4"
         }
+
+        return name
     }
-    
+
     public static func == (lhs: MMPlayerDownLoadVideoInfo, rhs: MMPlayerDownLoadVideoInfo) -> Bool {
         return lhs.url == rhs.url &&
-               lhs.type == rhs.type &&
-               lhs.fileName == rhs.fileName &&
-               lhs.fileSubPath == rhs.fileSubPath
+            lhs.type == rhs.type &&
+            lhs.fileName == rhs.fileName &&
+            lhs.fileSubPath == rhs.fileSubPath
     }
 }
