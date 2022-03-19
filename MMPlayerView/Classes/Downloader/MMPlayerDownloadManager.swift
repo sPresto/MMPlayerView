@@ -114,7 +114,7 @@ extension MMPlayerDownloadManager {
             guard let downloadURL = willDownloadToUrlMap.removeValue(forKey: task) else { return }
             do {
                 let data = try downloadURL.bookmarkData()
-                
+                print(downloadURL)
                 self.taskMap[task]?(.completed(data: data, type: .hls))
             } catch let dataErr {
                 self.taskMap[task]?(.failed(err: dataErr.localizedDescription))
