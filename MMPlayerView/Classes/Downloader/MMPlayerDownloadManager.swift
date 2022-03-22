@@ -40,7 +40,7 @@ class MMPlayerDownloadManager: NSObject {
                                                                         assetTitle: fileName,
                                                                         assetArtworkData: nil,
                                                                         options:
-                [AVAssetDownloadTaskMinimumRequiredMediaBitrateKey: 265_000]) else {
+                                                                            [:]) else {
                     status?(.failed(err: "Task Init error"))
                     return
             }
